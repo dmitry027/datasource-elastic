@@ -1,0 +1,29 @@
+{
+    "name": "vda/datasource-elastic",
+    "type": "library",
+    "description": "Implementation of the vda/datasource interfaces for Elasticsearch",
+    "keywords": ["datasource", "persistence", "search"],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://composer.vda-team.com/"
+        }
+    ],
+    "require": {
+        "elasticsearch/elasticsearch": "~2.0@beta",
+        "php": ">=5.5.0",
+        "vda/datasource": "0.19.*",
+        "vda/query": "0.15.*",
+        "vda/util": "0.12.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "monolog/monolog": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vda\\Datasource\\DocumentOriented\\Elastic\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}

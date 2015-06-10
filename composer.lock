@@ -1,0 +1,905 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "9ed6ad7d3348e21625fa7e231bb924bb",
+    "packages": [
+        {
+            "name": "elasticsearch/elasticsearch",
+            "version": "v2.0.0-beta4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elastic/elasticsearch-php.git",
+                "reference": "8387e53c4fcd615b2b57de4d6b7a07e17ffb5385"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/8387e53c4fcd615b2b57de4d6b7a07e17ffb5385",
+                "reference": "8387e53c4fcd615b2b57de4d6b7a07e17ffb5385",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/ringphp": "~1.0",
+                "php": ">=5.4",
+                "psr/log": "~1.0"
+            },
+            "require-dev": {
+                "athletic/athletic": "~0.1",
+                "cpliakas/git-wrapper": "~1.0",
+                "mockery/mockery": "dev-master@dev",
+                "phpunit/phpunit": "3.7.*",
+                "symfony/yaml": "2.4.3 as 2.4.2",
+                "twig/twig": "1.*"
+            },
+            "suggest": {
+                "ext-curl": "*",
+                "monolog/monolog": "Allows for client-level logging and tracing"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Elasticsearch\\": "src/Elasticsearch/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache 2"
+            ],
+            "authors": [
+                {
+                    "name": "Zachary Tong"
+                }
+            ],
+            "description": "PHP Client for Elasticsearch",
+            "keywords": [
+                "client",
+                "elasticsearch",
+                "search"
+            ],
+            "time": "2015-05-22 15:38:37"
+        },
+        {
+            "name": "guzzlehttp/ringphp",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/RingPHP.git",
+                "reference": "9465032ac5d6beaa55f10923403e6e1c36018d9c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/9465032ac5d6beaa55f10923403e6e1c36018d9c",
+                "reference": "9465032ac5d6beaa55f10923403e6e1c36018d9c",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/streams": "~3.0",
+                "php": ">=5.4.0",
+                "react/promise": "~2.0"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "ext-curl": "Guzzle will use specific adapters if cURL is present"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Ring\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
+            "time": "2015-05-21 17:23:02"
+        },
+        {
+            "name": "guzzlehttp/streams",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/streams.git",
+                "reference": "d1f8a6c55f0f753cfd6f6755856473eb02cedb19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/streams/zipball/d1f8a6c55f0f753cfd6f6755856473eb02cedb19",
+                "reference": "d1f8a6c55f0f753cfd6f6755856473eb02cedb19",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Stream\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Provides a simple abstraction over streams of data",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "Guzzle",
+                "stream"
+            ],
+            "time": "2015-01-22 00:01:34"
+        },
+        {
+            "name": "psr/log",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "9e45edca52cc9c954680072c93e621f8b71fab26"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/9e45edca52cc9c954680072c93e621f8b71fab26",
+                "reference": "9e45edca52cc9c954680072c93e621f8b71fab26",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Log\\": "Psr/Log/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "time": "2015-06-02 13:48:41"
+        },
+        {
+            "name": "react/promise",
+            "version": "v2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/reactphp/promise.git",
+                "reference": "365fcee430dfa4ace1fbc75737ca60ceea7eeeef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/reactphp/promise/zipball/365fcee430dfa4ace1fbc75737ca60ceea7eeeef",
+                "reference": "365fcee430dfa4ace1fbc75737ca60ceea7eeeef",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "React\\Promise\\": "src/"
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Sorgalla",
+                    "email": "jsorgalla@googlemail.com"
+                }
+            ],
+            "description": "A lightweight implementation of CommonJS Promises/A for PHP",
+            "time": "2014-12-30 13:32:42"
+        },
+        {
+            "name": "vda/datasource",
+            "version": "0.19.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/VDALLC/datasource.git",
+                "reference": "631c3f651dab2363b135ca94a91d155485f12c86"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "http://composer.vda-team.com/dist/vda-datasource-0.19.0-410553.zip",
+                "reference": "631c3f651dab2363b135ca94a91d155485f12c86",
+                "shasum": "37ca2f19749f57560afa3206962bee4810b5e13d"
+            },
+            "require": {
+                "php": ">=5.3.23",
+                "vda/query": "0.15.*",
+                "vda/transaction": "0.2.*",
+                "vda/util": "0.12.*"
+            },
+            "require-dev": {
+                "monolog/monolog": "*",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Vda\\Datasource\\": "src/"
+                }
+            },
+            "description": "Set of interfaces and implementations for data access",
+            "keywords": [
+                "datasource",
+                "persistence"
+            ],
+            "time": "2015-06-05 10:39:59"
+        },
+        {
+            "name": "vda/query",
+            "version": "0.15.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/VDALLC/query.git",
+                "reference": "b77bd296597c90ea646c8f1cfa2e451f65638b4d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "http://composer.vda-team.com/dist/vda-query-0.15.0-3670c1.zip",
+                "reference": "b77bd296597c90ea646c8f1cfa2e451f65638b4d",
+                "shasum": "9b03374212cdceb2471d3ad62ca2217cb889a817"
+            },
+            "require": {
+                "php": ">=5.3.23",
+                "vda/util": "0.12.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-trunk": "1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Vda\\Query\\": "src/"
+                }
+            },
+            "description": "Abstract queries",
+            "keywords": [
+                "criterion",
+                "query"
+            ],
+            "time": "2015-06-05 10:37:15"
+        },
+        {
+            "name": "vda/transaction",
+            "version": "0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/VDALLC/transaction.git",
+                "reference": "e1fc27bfade2c0d37d3a68d6abc84d13d312ae0f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "http://composer.vda-team.com/dist/vda-transaction-0.2.0-c5a817.zip",
+                "reference": "e1fc27bfade2c0d37d3a68d6abc84d13d312ae0f",
+                "shasum": "9f7e820f0ef89b10650569f331dfea5d39639d0c"
+            },
+            "require": {
+                "php": ">=5.3.23"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Vda\\Transaction\\": "src/"
+                }
+            },
+            "description": "Simple API for handling transactions",
+            "keywords": [
+                "transaction"
+            ],
+            "time": "2015-04-16 08:46:53"
+        },
+        {
+            "name": "vda/util",
+            "version": "0.12.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/VDALLC/util.git",
+                "reference": "f53592d83daca38a377c2309dda6c504a41afb1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "http://composer.vda-team.com/dist/vda-util-0.12.0-4a98d9.zip",
+                "reference": "f53592d83daca38a377c2309dda6c504a41afb1a",
+                "shasum": "618d4a1511fef9d3bd39733e46d4efc29bd44c33"
+            },
+            "require": {
+                "php": ">=5.3.23"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-trunk": "1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Vda\\Util\\": "src/"
+                }
+            },
+            "description": "Some usefull utils",
+            "keywords": [
+                "util"
+            ],
+            "time": "2015-01-22 08:47:44"
+        }
+    ],
+    "packages-dev": [
+        {
+            "name": "monolog/monolog",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Seldaek/monolog.git",
+                "reference": "77aef55318035d37dbd4e87ea0c37a191f3e766e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/77aef55318035d37dbd4e87ea0c37a191f3e766e",
+                "reference": "77aef55318035d37dbd4e87ea0c37a191f3e766e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "psr/log": "~1.0"
+            },
+            "provide": {
+                "psr/log-implementation": "1.0.0"
+            },
+            "require-dev": {
+                "aws/aws-sdk-php": "^2.4.9",
+                "doctrine/couchdb": "~1.0@dev",
+                "graylog2/gelf-php": "~1.0",
+                "php-console/php-console": "^3.1.3",
+                "phpunit/phpunit": "~4.5",
+                "phpunit/phpunit-mock-objects": "2.3.0",
+                "raven/raven": "~0.8",
+                "ruflin/elastica": ">=0.90 <3.0",
+                "swiftmailer/swiftmailer": "~5.3",
+                "videlalvaro/php-amqplib": "~2.4"
+            },
+            "suggest": {
+                "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
+                "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+                "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
+                "ext-mongo": "Allow sending log messages to a MongoDB server",
+                "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+                "php-console/php-console": "Allow sending log messages to Google Chrome",
+                "raven/raven": "Allow sending log messages to a Sentry server",
+                "rollbar/rollbar": "Allow sending log messages to Rollbar",
+                "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
+                "videlalvaro/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.13.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Monolog\\": "src/Monolog"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                }
+            ],
+            "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
+            "homepage": "http://github.com/Seldaek/monolog",
+            "keywords": [
+                "log",
+                "logging",
+                "psr-3"
+            ],
+            "time": "2015-06-05 11:23:05"
+        },
+        {
+            "name": "phpunit/php-code-coverage",
+            "version": "1.2.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
+                "reference": "fe2466802556d3fe4e4d1d58ffd3ccfd0a19be0b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/fe2466802556d3fe4e4d1d58ffd3ccfd0a19be0b",
+                "reference": "fe2466802556d3fe4e4d1d58ffd3ccfd0a19be0b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "phpunit/php-file-iterator": ">=1.3.0@stable",
+                "phpunit/php-text-template": ">=1.2.0@stable",
+                "phpunit/php-token-stream": ">=1.1.3,<1.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*@dev"
+            },
+            "suggest": {
+                "ext-dom": "*",
+                "ext-xdebug": ">=2.0.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "PHP/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                ""
+            ],
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sb@sebastian-bergmann.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",
+            "homepage": "https://github.com/sebastianbergmann/php-code-coverage",
+            "keywords": [
+                "coverage",
+                "testing",
+                "xunit"
+            ],
+            "time": "2014-09-02 10:13:14"
+        },
+        {
+            "name": "phpunit/php-file-iterator",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/php-file-iterator.git",
+                "reference": "a923bb15680d0089e2316f7a4af8f437046e96bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/a923bb15680d0089e2316f7a4af8f437046e96bb",
+                "reference": "a923bb15680d0089e2316f7a4af8f437046e96bb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sb@sebastian-bergmann.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "FilterIterator implementation that filters files based on a list of suffixes.",
+            "homepage": "https://github.com/sebastianbergmann/php-file-iterator/",
+            "keywords": [
+                "filesystem",
+                "iterator"
+            ],
+            "time": "2015-04-02 05:19:05"
+        },
+        {
+            "name": "phpunit/php-text-template",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/php-text-template.git",
+                "reference": "206dfefc0ffe9cebf65c413e3d0e809c82fbf00a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-text-template/zipball/206dfefc0ffe9cebf65c413e3d0e809c82fbf00a",
+                "reference": "206dfefc0ffe9cebf65c413e3d0e809c82fbf00a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "Text/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                ""
+            ],
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sb@sebastian-bergmann.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "Simple template engine.",
+            "homepage": "https://github.com/sebastianbergmann/php-text-template/",
+            "keywords": [
+                "template"
+            ],
+            "time": "2014-01-30 17:20:04"
+        },
+        {
+            "name": "phpunit/php-timer",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/php-timer.git",
+                "reference": "19689d4354b295ee3d8c54b4f42c3efb69cbc17c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/19689d4354b295ee3d8c54b4f42c3efb69cbc17c",
+                "reference": "19689d4354b295ee3d8c54b4f42c3efb69cbc17c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "PHP/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                ""
+            ],
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sb@sebastian-bergmann.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "Utility class for timing",
+            "homepage": "https://github.com/sebastianbergmann/php-timer/",
+            "keywords": [
+                "timer"
+            ],
+            "time": "2013-08-02 07:42:54"
+        },
+        {
+            "name": "phpunit/php-token-stream",
+            "version": "1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/php-token-stream.git",
+                "reference": "ad4e1e23ae01b483c16f600ff1bebec184588e32"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/ad4e1e23ae01b483c16f600ff1bebec184588e32",
+                "reference": "ad4e1e23ae01b483c16f600ff1bebec184588e32",
+                "shasum": ""
+            },
+            "require": {
+                "ext-tokenizer": "*",
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "PHP/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                ""
+            ],
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sb@sebastian-bergmann.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "Wrapper around PHP's tokenizer extension.",
+            "homepage": "https://github.com/sebastianbergmann/php-token-stream/",
+            "keywords": [
+                "tokenizer"
+            ],
+            "time": "2014-03-03 05:10:30"
+        },
+        {
+            "name": "phpunit/phpunit",
+            "version": "3.7.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/phpunit.git",
+                "reference": "38709dc22d519a3d1be46849868aa2ddf822bcf6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/38709dc22d519a3d1be46849868aa2ddf822bcf6",
+                "reference": "38709dc22d519a3d1be46849868aa2ddf822bcf6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-dom": "*",
+                "ext-json": "*",
+                "ext-pcre": "*",
+                "ext-reflection": "*",
+                "ext-spl": "*",
+                "php": ">=5.3.3",
+                "phpunit/php-code-coverage": "~1.2",
+                "phpunit/php-file-iterator": "~1.3",
+                "phpunit/php-text-template": "~1.1",
+                "phpunit/php-timer": "~1.0",
+                "phpunit/phpunit-mock-objects": "~1.2",
+                "symfony/yaml": "~2.0"
+            },
+            "require-dev": {
+                "pear-pear.php.net/pear": "1.9.4"
+            },
+            "suggest": {
+                "phpunit/php-invoker": "~1.1"
+            },
+            "bin": [
+                "composer/bin/phpunit"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.7.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "PHPUnit/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                "",
+                "../../symfony/yaml/"
+            ],
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "The PHP Unit Testing framework.",
+            "homepage": "http://www.phpunit.de/",
+            "keywords": [
+                "phpunit",
+                "testing",
+                "xunit"
+            ],
+            "time": "2014-10-17 09:04:17"
+        },
+        {
+            "name": "phpunit/phpunit-mock-objects",
+            "version": "1.2.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
+                "reference": "c39c4511c3b007539eb170c32cbc2af49a07351a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/c39c4511c3b007539eb170c32cbc2af49a07351a",
+                "reference": "c39c4511c3b007539eb170c32cbc2af49a07351a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "phpunit/php-text-template": ">=1.1.1@stable"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*@dev"
+            },
+            "suggest": {
+                "ext-soap": "*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "PHPUnit/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                ""
+            ],
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sb@sebastian-bergmann.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "Mock Object library for PHPUnit",
+            "homepage": "https://github.com/sebastianbergmann/phpunit-mock-objects/",
+            "keywords": [
+                "mock",
+                "xunit"
+            ],
+            "time": "2014-02-16 12:43:56"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "2.8.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Yaml.git",
+                "reference": "4a24e860650c88d1db61479f45dcdfa17d9dabdf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/4a24e860650c88d1db61479f45dcdfa17d9dabdf",
+                "reference": "4a24e860650c88d1db61479f45dcdfa17d9dabdf",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "~2.7|~3.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Yaml Component",
+            "homepage": "https://symfony.com",
+            "time": "2015-06-09 15:06:55"
+        }
+    ],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "elasticsearch/elasticsearch": 10
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=5.5.0"
+    },
+    "platform-dev": []
+}
