@@ -75,8 +75,7 @@ class QueryBuilder implements IQueryProcessor
 
         $this->buildCriteria($query->getCriteria());
 
-        //TODO Build aggregations
-        //$this->buildGroups($select->getGroups());
+        $this->buildGroups($select->getGroups());
 
         $this->buildOrders($query->getOrders());
 
@@ -495,7 +494,12 @@ class QueryBuilder implements IQueryProcessor
 
     public function processFunctionCall(FunctionCall $call)
     {
-        //TODO Implement this
+        $args = [];
+        foreach ($call->getArgs() as $arg) {
+            $args[] = $arg->onProcess($this);
+        }
+
+        return ['class' => 'func', 'name' => $call->getName(), 'args' => $args];
     }
 
     public function processOrder(Order $order)
@@ -513,7 +517,31 @@ class QueryBuilder implements IQueryProcessor
 
     public function processAlias(Alias $alias)
     {
-        //TODO Find how to handle this
+        $result = $alias->getExpression()->onProcess($this);
+        $result['alias'] = $alias->getAlias();
+
+        return $result;
+    }
+
+    private function buildGroups($groups)
+    {
+        if (empty($groups)) {
+            return;
+        }
+
+        $aggs = [];
+
+        foreach ($groups as $group) {
+            $f = $group->onProcess($this);
+
+            if ($f['class'] != 'field') {
+                throw \InvalidArgumentException('Only grouping by fields is supported currently');
+            }
+
+            $aggs[$f['name'] . '_agg'] = ['terms' => ['field' => $f['name']]];
+        }
+
+        $this->result['body']['aggs'] = $aggs;
     }
 
     private function buildCriteria($criteria)

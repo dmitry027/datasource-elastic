@@ -42,15 +42,21 @@ class Repository implements IRepository, LoggerAwareInterface
             $this->logger->debug("Search: {params}", ['params' => $q]);
         }
 
-        $result = $this->elastic->search($q);
+        $aggregated = !empty($q['body']['aggs']);
 
-        foreach ($result['hits']['hits'] as $doc) {
-            $accumulator->accumulate($this->flattenDoc($select->getFields(), $doc));
+        if ($aggregated) {
+            $result = $this->elastic->count($q);
+        } else {
+            $result = $this->elastic->search($q);
+            foreach ($result['hits']['hits'] as $doc) {
+                $accumulator->accumulate($this->flattenDoc($select->getFields(), $doc));
 
-            if ($accumulator->isFilled()) {
-                break;
+                if ($accumulator->isFilled()) {
+                    break;
+                }
             }
         }
+
 
         return $accumulator->getResult();
     }
