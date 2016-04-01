@@ -2,7 +2,6 @@
 namespace Vda\Datasource\DocumentOriented\Elastic;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Vda\Datasource\DocumentOriented\Elastic\Query as E;
 use Vda\Query\Operator\UnaryOperator;
 use Vda\Query\Operator\BinaryOperator;
 use Vda\Query\Operator\CompositeOperator;
@@ -66,7 +65,7 @@ class QueryBuilder implements IQueryProcessor
                 $f = $field->onProcess($this);
 
                 if ($f['class'] != 'field') {
-                    throw \Exception("Unsupported field class: {$f['class']}");
+                    throw new \Exception("Unsupported field class: {$f['class']}");
                 }
 
                 $this->result['body']['fields'][] = $f['name'];
