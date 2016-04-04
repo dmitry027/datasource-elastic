@@ -2,29 +2,31 @@
 namespace Vda\Datasource\DocumentOriented\Elastic;
 
 use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Vda\Query\Operator\UnaryOperator;
+use Vda\Query\Alias;
+use Vda\Query\Delete;
+use Vda\Query\Field;
+use Vda\Query\Insert;
+use Vda\Query\IQueryPart;
+use Vda\Query\IQueryProcessor;
+use Vda\Query\JoinClause;
 use Vda\Query\Operator\BinaryOperator;
 use Vda\Query\Operator\CompositeOperator;
 use Vda\Query\Operator\Constant;
-use Vda\Query\Operator\Mask;
 use Vda\Query\Operator\FunctionCall;
+use Vda\Query\Operator\Mask;
 use Vda\Query\Operator\Operator;
-use Vda\Query\Alias;
-use Vda\Query\Field;
-use Vda\Query\IQueryProcessor;
-use Vda\Query\IQueryPart;
-use Vda\Query\JoinClause;
-use Vda\Query\Table;
+use Vda\Query\Operator\UnaryOperator;
 use Vda\Query\Order;
-use Vda\Query\Delete;
-use Vda\Query\Insert;
 use Vda\Query\Select;
+use Vda\Query\Table;
 use Vda\Query\Update;
 use Vda\Query\Upsert;
 use Vda\Util\Type;
 
 class QueryBuilder implements IQueryProcessor
 {
+    private static $aggregateFunctions = ['count', 'sum', 'avg', 'min', 'max'];
+
     private $result;
 
     public function build(IQueryPart $processable)
@@ -59,22 +61,32 @@ class QueryBuilder implements IQueryProcessor
 
         //TODO Handle joins and nested select clauses
         $fields = $query->getFields();
+        $aggFuncs = [];
 
-        if ($fields !== $s['fields']) {
-            foreach ($fields as $field) {
-                $f = $field->onProcess($this);
+        foreach ($fields as $field) {
+            $f = $field->onProcess($this);
 
-                if ($f['class'] != 'field') {
-                    throw new \Exception("Unsupported field class: {$f['class']}");
+            if ($f['class'] == 'field') {
+                $this->result['body']['_source'][] = $f['name'];
+                $this->result['qb']['has-fields'] = true;
+            } elseif ($f['class'] == 'func') {
+                if (in_array($f['name'], self::$aggregateFunctions)) {
+                    $f['agg-id'] = uniqid();
+                    $aggFuncs[] = $f;
+                } else {
+                    //TODO Add support for non-aggregate functions
+                    throw new \Exception("Unsupported function call: {$f['name']}");
                 }
-
-                $this->result['body']['fields'][] = $f['name'];
+            } else {
+                throw new \Exception("Unsupported field class: {$f['class']}");
             }
+
+            $this->result['qb']['fields'][] = $f;
         }
 
         $this->buildCriteria($query->getCriteria());
 
-        $this->buildGroups($select->getGroups());
+        $this->buildAggregations($query->getGroups(), $aggFuncs);
 
         $this->buildOrders($query->getOrders());
 
@@ -194,7 +206,7 @@ class QueryBuilder implements IQueryProcessor
 
     public function processField(Field $field)
     {
-            return ['name' => $field->getName(), 'class' => 'field'];
+            return ['name' => $field->getName(), 'class' => 'field', 'type' => $field->getType()];
     }
 
     public function processTable(Table $table)
@@ -522,25 +534,73 @@ class QueryBuilder implements IQueryProcessor
         return $result;
     }
 
-    private function buildGroups($groups)
+    private function buildAggregations($groups, $funcs)
     {
-        if (empty($groups)) {
-            return;
+        if (!empty($funcs) && !empty($groups)) {
+            $aggs = $this->buildFieldAggregations($funcs, $groups);
+        } elseif (!empty($funcs) && empty($groups)) {
+            $aggs = $this->buildGlobalAggregations($funcs);
+        } elseif (empty($funcs) && !empty($groups)) {
+            $aggs = $this->buildTermAggregations($groups);
         }
 
+        if (!empty($aggs)) {
+            $this->result['body']['aggs'] = $aggs;
+        }
+    }
+
+    private function buildFieldAggregations($funcs, $groups)
+    {
+        //TODO Build bucketed aggregations based on groups
+        $this->result['qb']['is-groupped-by'] = true;
+
+        throw new \Exception("Grouping is not supported yet");
+    }
+
+    private function buildTermAggregations($groups)
+    {
+        //TODO Build bucketed aggregations based on groups
+        $this->result['qb']['is-groupped-by'] = true;
+
+        throw new \Exception("Grouping is not supported yet");
+
+        /*
+         foreach ($groups as $group) {
+         $f = $group->onProcess($this);
+
+         if ($f['class'] != 'field') {
+         throw \InvalidArgumentException('Only grouping by fields is supported currently');
+         }
+
+         $aggs[$f['agg-id']] = ['terms' => ['field' => $f['name']]];
+         }
+         */
+    }
+
+    private function buildGlobalAggregations($funcs)
+    {
         $aggs = [];
 
-        foreach ($groups as $group) {
-            $f = $group->onProcess($this);
-
-            if ($f['class'] != 'field') {
-                throw \InvalidArgumentException('Only grouping by fields is supported currently');
+        foreach ($funcs as $func) {
+            if ($func['name'] == 'count' && empty($func['args'])) {
+                $this->result['qb']['agg-path'][$func['agg-id']] = ['hits', 'total'];
+            } else {
+                $field = reset($func['args']);
+                $aggs[$func['agg-id']] = [$this->mapFuncName($func['name']) => ['field' => $field['name']]];
+                $this->result['qb']['agg-path'][$func['agg-id']] = ['aggregations', $func['agg-id'], 'value'];
             }
-
-            $aggs[$f['name'] . '_agg'] = ['terms' => ['field' => $f['name']]];
         }
 
-        $this->result['body']['aggs'] = $aggs;
+        return $aggs;
+    }
+
+    private function mapFuncName($funcName)
+    {
+        if ($funcName == 'count') {
+            return 'value_count';
+        }
+
+        return $funcName;
     }
 
     private function buildCriteria($criteria)

@@ -5,13 +5,12 @@ use Elasticsearch\Client;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Vda\Datasource\IRepository;
-use Vda\Query\Select;
-use Vda\Query\Insert;
-use Vda\Query\Upsert;
-use Vda\Query\Update;
 use Vda\Query\Delete;
-use Vda\Query\Alias;
 use Vda\Query\Field;
+use Vda\Query\Insert;
+use Vda\Query\Select;
+use Vda\Query\Update;
+use Vda\Query\Upsert;
 use Vda\Util\Type;
 
 class Repository implements IRepository, LoggerAwareInterface
@@ -38,25 +37,28 @@ class Repository implements IRepository, LoggerAwareInterface
         $accumulator->reset($select->getProjection());
 
         $q = $this->qb->build($select);
+
         if ($this->logger) {
             $this->logger->debug("Search: {params}", ['params' => $q]);
         }
 
-        $aggregated = !empty($q['body']['aggs']);
+        $meta = $q['qb'];
+        unset($q['qb']);
+        $result = $this->elastic->search($q);
 
-        if ($aggregated) {
-            $result = $this->elastic->count($q);
-        } else {
-            $result = $this->elastic->search($q);
-            foreach ($result['hits']['hits'] as $doc) {
-                $accumulator->accumulate($this->flattenDoc($select->getFields(), $doc));
+        if (empty($meta['is-groupped-by']) && empty($meta['has-fields'])) {
+            $accumulator->accumulate($this->flattenDoc($meta, [], $result));
+        } elseif (empty($meta['is-groupped-by']) && !empty($meta['has-fields'])) {
+            foreach ($result['hits']['hits'] as $hit) {
+                $accumulator->accumulate($this->flattenDoc($meta, $hit, $result));
 
                 if ($accumulator->isFilled()) {
                     break;
                 }
             }
+        } else {
+            //TODO Implement groupped queries
         }
-
 
         return $accumulator->getResult();
     }
@@ -153,32 +155,27 @@ class Repository implements IRepository, LoggerAwareInterface
         return $this->lastInsertId;
     }
 
-    protected function flattenDoc(array $fields, array $doc)
+    protected function flattenDoc(array $meta, array $currentHit, array $fullResult)
     {
         $tuple = [];
-
-        foreach ($fields as $i => $field) {
-            if ($fields[$i] instanceof Alias) {
-                $name = $fields[$i]->getAlias();
-                $field = $field->getExpression();
-            }
-
-            if ($field instanceof Field) {
-                $name = $field->getName();
-
-                if ($name == 'id') {
-                    $val = $doc['_id'];
+        foreach ($meta['fields'] as $i => $field) {
+            if ($field['class'] == 'field') {
+                if ($field['name'] == 'id') {
+                    $val = $currentHit['_id'];
                 } else {
-                    $val = $doc['_source'];
-                    foreach (explode('.', $name) as $part) {
-                        $val = $val[$part];
-                    }
+                    $val = $this->getIn($currentHit['_source'], explode('.', $field['name']));
                 }
 
-                if ($field->getType() == Type::DATE && !is_null($val)) {
+                if ($field['type'] == Type::DATE && !is_null($val)) {
                     $tuple[$i] = new \DateTimeImmutable($val);
                 } else {
                     $tuple[$i] = $val;
+                }
+            } elseif ($field['class'] == 'func') {
+                if (!empty($field['agg-id'])) {
+                    $tuple[$i] = $this->getIn($fullResult, $meta['agg-path'][$field['agg-id']]);
+                } else {
+                    //TODO Handle non-aggregate function call
                 }
             } else {
                 //TODO Handle expression fields
@@ -187,5 +184,15 @@ class Repository implements IRepository, LoggerAwareInterface
         }
 
         return $tuple;
+    }
+
+    private function getIn($coll, $path)
+    {
+        $val = $coll;
+        foreach ($path as $part) {
+            $val = $val[$part];
+        }
+
+        return $val;
     }
 }
