@@ -282,7 +282,7 @@ class QueryBuilder implements IQueryProcessor
         $expression = $operator->getOperand2()->onProcess($this);
 
         if ($field['class'] != 'field') {
-            throw \InvalidArgumentException('Only sorting by fields is supported currently');
+            throw new \InvalidArgumentException('Only sorting by fields is supported currently');
         }
 
         switch ($op) {
@@ -518,7 +518,7 @@ class QueryBuilder implements IQueryProcessor
         $f = $order->getProperty()->onProcess($this);
 
         if ($f['class'] != 'field') {
-            throw \InvalidArgumentException('Only sorting by fields is supported currently');
+            throw new \InvalidArgumentException('Only sorting by fields is supported currently');
         }
 
         return [
@@ -569,7 +569,7 @@ class QueryBuilder implements IQueryProcessor
          $f = $group->onProcess($this);
 
          if ($f['class'] != 'field') {
-         throw \InvalidArgumentException('Only grouping by fields is supported currently');
+         throw new \InvalidArgumentException('Only grouping by fields is supported currently');
          }
 
          $aggs[$f['agg-id']] = ['terms' => ['field' => $f['name']]];
