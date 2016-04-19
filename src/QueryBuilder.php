@@ -302,12 +302,12 @@ class QueryBuilder implements IQueryProcessor
                 if ($field['name'] == 'id') {
                     $result = [
                         'class' => 'filter',
-                        'term' => ['ids' => ['values' => $expression['term']]],
+                        'term' => ['ids' => ['values' => array_values($expression['term'])]],
                     ];
                 } else {
                     $result = [
                         'class' => 'filter',
-                        'term' => ['terms' => [$field['name'] => $expression['term']]],
+                        'term' => ['terms' => [$field['name'] => array_values($expression['term'])]],
                     ];
                 }
                 break;
