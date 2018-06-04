@@ -1,7 +1,6 @@
 <?php
 namespace Vda\Datasource\DocumentOriented\Elastic;
 
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Vda\Query\Alias;
 use Vda\Query\Delete;
 use Vda\Query\Field;
@@ -206,7 +205,11 @@ class QueryBuilder implements IQueryProcessor
 
     public function processField(Field $field)
     {
-            return ['name' => $field->getName(), 'class' => 'field', 'type' => $field->getType()];
+        return [
+            'class' => 'field',
+            'type'  => $field->getType(),
+            'name'  => $field->getName(),
+        ];
     }
 
     public function processTable(Table $table)
@@ -230,29 +233,23 @@ class QueryBuilder implements IQueryProcessor
 
         switch ($operator->getMnemonic()) {
             case Operator::MNEMONIC_UNARY_NOT:
-                if ($operand['class'] == 'filter') {
-                    $result['term'] = ['not' => $operand['term']];
-                } else {
-                    $result['term'] = ['bool' => ['must_not' => $operand['term']]];
-                }
+                $result['term'] = ['bool' => ['must_not' => $operand['term']]];
                 break;
 
             case Operator::MNEMONIC_UNARY_ISNULL:
-                $result = [
-                    'class' => 'filter',
-                    'term' => ['missing' => ['field' => $operand['name']]],
-                ];
-                break;
-
             case Operator::MNEMONIC_UNARY_NOTNULL:
                 $result = [
                     'class' => 'filter',
                     'term' => ['exists' => ['field' => $operand['name']]],
                 ];
+
+                if ($operator->getMnemonic() == Operator::MNEMONIC_UNARY_ISNULL) {
+                    $result = $this->negateQuery($result);
+                }
                 break;
 
             default:
-                $this->onInvalidMnemonic('unary', $op->getMnemonic());
+                $this->onInvalidMnemonic('unary', $operator->getMnemonic());
         }
 
         return $result;
@@ -386,23 +383,21 @@ class QueryBuilder implements IQueryProcessor
                     $result = [
                         'class' => 'query',
                         'term' => [
-                            'filtered' => [
-                                'query'  => ['bool' => ['must' => $queries]],
-                                'filter' => ['and' => $filters],
+                            'bool' => [
+                                'must'   => $queries,
+                                'filter' => ['bool' => ['must' => $filters]],
                             ],
                         ],
                     ];
                 } elseif (!empty($queries)) {
                     $result = [
                         'class' => 'query',
-                        'term' => [
-                            'bool' => ['must' => $queries],
-                        ]
+                        'term' => ['bool' => ['must' => $queries]],
                     ];
                 } elseif (!empty($filters)) {
                     $result = [
                         'class' => 'filter',
-                        'term' => ['and' => $filters],
+                        'term' => ['bool' => ['must' => $filters]],
                     ];
                 }
                 break;
@@ -411,10 +406,10 @@ class QueryBuilder implements IQueryProcessor
                 if (!empty($filters) && !empty($queries)) {
                     $result = [
                         'class' => 'query',
-                        'term' => [
-                            'filtered' => [
-                                'query'  => ['bool' => ['should' => $queries]],
-                                'filter' => ['or' => $filters],
+                        'term'  => [
+                            'bool' => [
+                                'should' => $queries,
+                                'filter' => ['bool' => ['should' => $filters]],
                             ],
                         ],
                     ];
@@ -428,7 +423,7 @@ class QueryBuilder implements IQueryProcessor
                 } elseif (!empty($filters)) {
                     $result = [
                         'class' => 'filter',
-                        'term' => ['or' => $filters],
+                        'term' => ['bool' => ['should' => $filters]],
                     ];
                 }
                 break;
@@ -609,7 +604,7 @@ class QueryBuilder implements IQueryProcessor
             $c = $criteria->onProcess($this);
 
             if ($c['class'] == 'filter') {
-                $this->result['body']['query']['filtered']['filter'] = $c['term'];
+                $this->result['body']['query']['bool']['filter'] = $c['term'];
             } else {
                 $this->result['body']['query'] = $c['term'];
             }
@@ -631,7 +626,7 @@ class QueryBuilder implements IQueryProcessor
     {
         if (is_null($limit)) {
             if (!is_null($offset)) {
-                throw new \InvalidArgumentException('Offset can not be set if the limit is ommited');
+                throw new \InvalidArgumentException('Offset can not be set if the limit is omitted');
             }
 
             return;
@@ -660,9 +655,7 @@ class QueryBuilder implements IQueryProcessor
 
     private function negateQuery($query)
     {
-        if ($query['class'] == 'filter') {
-            $query['term'] = ['not' => $query['term']];
-        } elseif (!empty($query['term']['bool'])) {
+        if (!empty($query['term']['bool'])) {
             $old = $query['term']['bool'];
             $new = ['should' => [], 'must_not' => []];
             if (!empty($old['should'])) {
