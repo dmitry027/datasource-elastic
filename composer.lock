@@ -4,34 +4,35 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7da6735ac5a78e4722cefc990bd5fb5",
+    "content-hash": "49689849c1023a4d5c49ec9169209eda",
     "packages": [
         {
             "name": "elasticsearch/elasticsearch",
-            "version": "v2.3.2",
+            "version": "v5.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elastic/elasticsearch-php.git",
-                "reference": "c57db9da04f4c54c2ca69a52bc618d9120b96d4d"
+                "reference": "4b29a4121e790bbfe690d5ee77da348b62d48eb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/c57db9da04f4c54c2ca69a52bc618d9120b96d4d",
-                "reference": "c57db9da04f4c54c2ca69a52bc618d9120b96d4d",
+                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/4b29a4121e790bbfe690d5ee77da348b62d48eb8",
+                "reference": "4b29a4121e790bbfe690d5ee77da348b62d48eb8",
                 "shasum": ""
             },
             "require": {
                 "guzzlehttp/ringphp": "~1.0",
-                "php": ">=5.4",
+                "php": "^5.6|^7.0",
                 "psr/log": "~1.0"
             },
             "require-dev": {
                 "cpliakas/git-wrapper": "~1.0",
+                "doctrine/inflector": "^1.1",
                 "mockery/mockery": "0.9.4",
-                "phpunit/phpunit": "~4.7",
+                "phpunit/phpunit": "^4.7|^5.4",
                 "sami/sami": "~3.2",
-                "symfony/yaml": "2.4.3 as 2.4.2",
-                "twig/twig": "1.*"
+                "symfony/finder": "^2.8",
+                "symfony/yaml": "^2.8"
             },
             "suggest": {
                 "ext-curl": "*",
@@ -58,7 +59,7 @@
                 "elasticsearch",
                 "search"
             ],
-            "time": "2017-12-05T14:05:24+00:00"
+            "time": "2017-11-08T17:04:47+00:00"
         },
         {
             "name": "guzzlehttp/ringphp",
@@ -167,12 +168,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d"
+                "reference": "3490ba5925e6dcbe6de950c5c6b8dce9f6e96eda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
-                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/3490ba5925e6dcbe6de950c5c6b8dce9f6e96eda",
+                "reference": "3490ba5925e6dcbe6de950c5c6b8dce9f6e96eda",
                 "shasum": ""
             },
             "require": {
@@ -206,7 +207,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10T12:19:37+00:00"
+            "time": "2018-04-03T15:59:15+00:00"
         },
         {
             "name": "react/promise",
@@ -214,12 +215,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/promise.git",
-                "reference": "179520ec0b25cf4c742d9653be9f4964d64d4a6e"
+                "reference": "308b9165ccfc65c01002b5a678297161786cae4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/promise/zipball/179520ec0b25cf4c742d9653be9f4964d64d4a6e",
-                "reference": "179520ec0b25cf4c742d9653be9f4964d64d4a6e",
+                "url": "https://api.github.com/repos/reactphp/promise/zipball/308b9165ccfc65c01002b5a678297161786cae4a",
+                "reference": "308b9165ccfc65c01002b5a678297161786cae4a",
                 "shasum": ""
             },
             "require": {
@@ -252,7 +253,7 @@
                 "promise",
                 "promises"
             ],
-            "time": "2017-09-19T13:02:44+00:00"
+            "time": "2018-05-07T08:34:03+00:00"
         },
         {
             "name": "vda/datasource",
@@ -844,21 +845,80 @@
             "time": "2014-02-16T12:43:56+00:00"
         },
         {
+            "name": "symfony/polyfill-ctype",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-ctype.git",
+                "reference": "9d31bef82d2e9b033f335d60b96611757f98c605"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/9d31bef82d2e9b033f335d60b96611757f98c605",
+                "reference": "9d31bef82d2e9b033f335d60b96611757f98c605",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "suggest": {
+                "ext-ctype": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Ctype\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                },
+                {
+                    "name": "Gert de Pagter",
+                    "email": "BackEndTea@gmail.com"
+                }
+            ],
+            "description": "Symfony polyfill for ctype functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "ctype",
+                "polyfill",
+                "portable"
+            ],
+            "time": "2018-05-17T18:32:56+00:00"
+        },
+        {
             "name": "symfony/yaml",
             "version": "2.8.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "be720fcfae4614df204190d57795351059946a77"
+                "reference": "51356b7a2ff7c9fd06b2f1681cc463bb62b5c1ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/be720fcfae4614df204190d57795351059946a77",
-                "reference": "be720fcfae4614df204190d57795351059946a77",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/51356b7a2ff7c9fd06b2f1681cc463bb62b5c1ff",
+                "reference": "51356b7a2ff7c9fd06b2f1681cc463bb62b5c1ff",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9"
+                "php": ">=5.3.9",
+                "symfony/polyfill-ctype": "~1.8"
             },
             "type": "library",
             "extra": {
@@ -890,7 +950,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-03T07:36:31+00:00"
+            "time": "2018-05-01T22:52:40+00:00"
         }
     ],
     "aliases": [],
