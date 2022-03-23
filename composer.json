@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "elasticsearch/elasticsearch": "~5.0",
+        "elasticsearch/elasticsearch": "6.8.2",
         "php": ">=5.5.0",
         "vda/datasource": ">=0.20.0",
         "vda/query": "0.16.*",
@@ -25,5 +25,6 @@
             "Vda\\Datasource\\DocumentOriented\\Elastic\\": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
