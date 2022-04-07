@@ -190,7 +190,7 @@ class Repository implements IRepository, LoggerAwareInterface
     {
         $val = $coll;
         foreach ($path as $part) {
-            $val = $val[$part];
+            $val = isset($val[$part]) ? $val[$part] : null;
         }
 
         return $val;
