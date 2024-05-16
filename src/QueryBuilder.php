@@ -12,6 +12,7 @@ use Vda\Query\Operator\BinaryOperator;
 use Vda\Query\Operator\CompositeOperator;
 use Vda\Query\Operator\Constant;
 use Vda\Query\Operator\FunctionCall;
+use Vda\Query\Operator\JsonGet;
 use Vda\Query\Operator\Mask;
 use Vda\Query\Operator\Operator;
 use Vda\Query\Operator\UnaryOperator;
@@ -699,5 +700,10 @@ class QueryBuilder implements IQueryProcessor
         }
 
         return $result;
+    }
+
+    public function processJsonGet(JsonGet $get)
+    {
+        // TODO: Implement processJsonGet() method.
     }
 }

@@ -13,7 +13,7 @@
         "elasticsearch/elasticsearch": "6.8.2",
         "php": ">=5.5.0",
         "vda/datasource": ">=0.20.0",
-        "vda/query": "0.16.*",
+        "vda/query": "0.17.*",
         "vda/util": "0.12.*"
     },
     "require-dev": {
